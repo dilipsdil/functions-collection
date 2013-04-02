@@ -1,0 +1,20 @@
+<html>
+
+<body style="text-align: center;">
+<h3>Kenyatta Ave roundabout</h3>
+<img src="http://traffic.accesskenya.com/images/traffic/feeds/barclaysplaza.jpg" />
+
+<h3>Museum Hill Flyover</h3>
+<img src="http://traffic.accesskenya.com/images/traffic/feeds/purshotam.jpg" />
+
+<script>
+  setInterval(function() {
+      var images = document.images;
+      for (var i=0; i<images.length; i++) {
+          images[i].src = images[i].src.replace(/\btime=[^&]*/, 'time=' + new Date().getTime());
+      }
+  }, 10000); // 10000 milliseconds = 10 seconds
+  </script>
+
+</body>
+</html>
