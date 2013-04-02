@@ -2,17 +2,19 @@
 $msg = "Enter Usename and Password";
 if(isset($_POST["username"])||isset($_SESSION['username']))
 {
-  session_start(); #make sure this is at the top of your PHP file.
+	session_start(); #make sure this is at the top of your PHP file.
 	//$adServer = "192.168.0.16"; #replace with your AD server ip/hostname
 	$adServer = "pdc.scangroup.local"; #replace with your AD server ip/hostname
+	
 	if($ldapconn = ldap_connect($adServer))
 	{
+		echo ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
 		//adjust username according to the server
 		$username = $_POST["username"];
 		$ldaprdn = $username . "@scangroup.local"; 
 		$password = $_POST["password"];
 		
-		if($ldapbind = ldap_bind($ldapconn, $ldaprdn, $_POST["password"]))
+		if($ldapbind = ldap_bind($ldapconn, $ldaprdn, $_POST["password"])  )
 		{
 		$msg = "Successfully Authenticated";
 		$_SESSION['username'] = $username;
@@ -28,8 +30,6 @@ if(isset($_POST["username"])||isset($_SESSION['username']))
 		$msg = "Could not connect to LDAP server.";
 	}
 	
-	$e = oci_error($msg);
-	echo $e;
 }
 
 ?>
