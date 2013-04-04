@@ -20,37 +20,30 @@ if(id=='main_table_income'){
 	}
 }
 
-function SelectContent (el) {
+function SelectContent (elemId) {
 
+	var elemToSelect = document.getElementById (elemId);
 
-var elemToSelect = document.getElementById (el);
+	if (window.getSelection) {  // all browsers, except IE before version 9
+		var selection = window.getSelection ();
+		var rangeToSelect = document.createRange ();
+		rangeToSelect.selectNodeContents (elemToSelect);
+		selection.removeAllRanges ();
+		selection.addRange (rangeToSelect);
+	}
 
-        if (window.getSelection) {  // all browsers, except IE before version 9
-            var selection = window.getSelection ();
-            var rangeToSelect = document.createRange ();
-            rangeToSelect.selectNodeContents (elemToSelect);
+	else if (document.body.createTextRange) {    // Internet Explorer// Internet Explorer before version 9
+		var rangeToSelect = document.body.createTextRange ();
+		rangeToSelect.moveToElementText (elemToSelect);
+		rangeToSelect.select ();
+	}
 
-            selection.removeAllRanges ();
-            selection.addRange (rangeToSelect);
-
-
-
-        }
-
-    else       // Internet Explorer before version 9
-          if (document.body.createTextRange) {    // Internet Explorer
-                var rangeToSelect = document.body.createTextRange ();
-                rangeToSelect.moveToElementText (elemToSelect);
-                rangeToSelect.select ();
-
-        }
-
-  else if (document.createRange && window.getSelection) {         
-          range = document.createRange();             
-          range.selectNodeContents(el);             
-    sel = window.getSelection();     
-                  sel.removeAllRanges();             
-    sel.addRange(range);              
- }  
+	else if (document.createRange && window.getSelection) {         
+		range = document.createRange();             
+		range.selectNodeContents(elemId);             
+		sel = window.getSelection();     
+		sel.removeAllRanges();             
+		sel.addRange(range);              
+	}  
 }
 </script>
