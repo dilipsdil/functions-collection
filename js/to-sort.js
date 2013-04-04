@@ -1,21 +1,49 @@
 <script type="text/javascript" >
-//used to display one element from multiple on the same page.
-//this will display one element while hiding all others in the same group.
-//the group is defined as an array
-//TODO find a way of sending Array from the function call rather than difining in the function
-function showOneFromGroup(id) {
+/*used to display one element from multiple on the same page.
+this will display one element while hiding all others in the same group.
+the group is defined as an array
+the PHP code below shows how it can be implemented
+this code just shows implemtation of selecting/link code
+actual elements need to have the same id as the PHP array to make it work
+*/
+/*
+<?php
+$php_array = array(
+		"idOne"=>"nameOne",
+		"idTwo"=>"nameTwo",
+		"idThree"=>"nameThree",
+		);
+//the array is fliped to get the keys as values and array_value will remove the keys to make it work with json_encode
+echo "<script> getArrayFromHtml(" . json_encode(array_values(array_flip($php_array))) . ");</script>";
+//use a for loop to print clickable links for selettion
+foreach($php_array as $key=>$value){
+?>			
+	<div id='switch' > <a href="#" onclick="showOneFromGroup('<?php echo $key ; ?>'); return false;"><?php echo $value ; ?></a></div>
+<?php
+}
+?>
+*/
 
-	var idArray = ["main_table_income","main_table_client","main_table_ctl","main_table_non"];
+//defined outside of function to make it avaiable to both functions
+var globalArray = new Array();
 
-	for(i = 0; i< idArray.length ; i++){
-		if(id==idArray[i]){
-		document.getElementById(idArray[i]).style.display = 'block';
+//get the array from function call and assign it to array
+function getArrayFromHtml(array){
+globalArray  = array;
+}
+
+//paramenter is the id of element to display
+function showOneFromGroup(id) {;
+	for(i = 0; i< globalArray.length ; i++){
+		if(id==globalArray[i]){
+		document.getElementById(globalArray[i]).style.display = 'block';
 		}
 		else{
-		document.getElementById(idArray[i]).style.display = 'none';
+		document.getElementById(globalArray[i]).style.display = 'none';
 		}
 	}
-}
+}	
+
 
 //used to select/highlight html elements
 //Example of use
