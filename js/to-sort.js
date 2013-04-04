@@ -1,24 +1,25 @@
 <script type="text/javascript" >
-function showStuff(id) {
-if(id=='main_table_income'){
-    document.getElementById('main_table_income').style.display = 'block';
-  document.getElementById('main_table_ctl').style.display = 'none';
-	document.getElementById('main_table_non').style.display = 'none';
-	//document.getElementById('switch').innerHTML = '<a href="#" onclick="showStuff(\'main_table_non\'); return false;">Switch Report</a>';
-	}
-	else if(id=='main_table_ctl'){
-	  document.getElementById('main_table_income').style.display = 'none';
-    document.getElementById('main_table_ctl').style.display = 'block';
-	document.getElementById('main_table_non').style.display = 'none';
-	//document.getElementById('switch').innerHTML = '<a href="#" onclick="showStuff(\'main_table_non\'); return false;">Switch Report</a>';
-	}
-	else{
-	document.getElementById('main_table_income').style.display = 'none';
-	document.getElementById('main_table_ctl').style.display = 'none';
-	document.getElementById('main_table_non').style.display = 'block';
-	//document.getElementById('switch').innerHTML = '<a href="#" onclick="showStuff(\'main_table_ctl\'); return false;">Switch Report</a>';
+//used to display one element from multiple from the same page.
+//this will display one element while hiding all others in the same group.
+//the group is defined as an array
+//TODO find a way of sending Array from the function call rather than difining in the function
+function showOneFromGroup(id) {
+
+	var idArray = ["main_table_income","main_table_client","main_table_ctl","main_table_non"];
+
+	for(i = 0; i< idArray.length ; i++){
+		if(id==idArray[i]){
+		document.getElementById(idArray[i]).style.display = 'block';
+		}
+		else{
+		document.getElementById(idArray[i]).style.display = 'none';
+		}
 	}
 }
+
+//used to select/highlight html elements
+//Example of use
+//<h1 onclick="SelectContent('elementId'); return false;">
 
 function SelectContent (elemId) {
 
@@ -46,4 +47,24 @@ function SelectContent (elemId) {
 		sel.addRange(range);              
 	}  
 }
+
+
+//use for check boxes
+//Example of use
+//<input type="button" name="CheckAll"  id ="CheckBox" value="Check All" onClick="checkAll(document.formName.checkboxName[], "CheckBox")
+
+function checkAll(field, button)
+{
+for (i = 0; i < field.length; i++)
+	field[i].checked = true ;
+	document.getElementById(button]).value = "Un-Check All""
+}
+
+function uncheckAll(field)
+{
+for (i = 0; i < field.length; i++)
+	field[i].checked = false ;	
+	document.getElementById(button]).value = "Check All""
+}
+
 </script>
