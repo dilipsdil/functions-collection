@@ -1,5 +1,5 @@
 <script type="text/javascript" >
-//used to display one element from multiple from the same page.
+//used to display one element from multiple on the same page.
 //this will display one element while hiding all others in the same group.
 //the group is defined as an array
 //TODO find a way of sending Array from the function call rather than difining in the function
@@ -67,4 +67,13 @@ for (i = 0; i < field.length; i++)
 	document.getElementById(button]).value = "Check All""
 }
 
+//used to reload all images on the page at a given interval
+setInterval(
+	function() {
+		var images = document.images;
+		for (var i=0; i<images.length; i++) {
+		images[i].src = images[i].src.replace(/\btime=[^&]*/, 'time=' + new Date().getTime());
+		}
+	}
+	, 10000); // in ms = 1000 milliseconds = 1 seconds
 </script>
