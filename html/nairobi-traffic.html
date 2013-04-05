@@ -1,11 +1,59 @@
 <html>
 <head>
 <title>
+Dilips Traffic Cams
 </title>
 
+<style type="text/css">
+label {
+    display: block;
+    padding-left: 20px;
+	text-align:left;
+}
 
-<script>
+body {
+text-align:center;
+}
+
+#input{
+	width:640px;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+
+
+<script type="text/javascript">
+
 var camera = new Array();
+
+window.addEventListener('focus', function() {
+});
+
+window.addEventListener('blur', function() {
+});
+
+function getWidth(){
+    xWidth = null;
+    if(window.screen != null)
+		xWidth = window.screen.availWidth;
+    if(window.innerWidth != null)
+		xWidth = window.innerWidth;
+    if(document.body != null)
+		xWidth = document.body.clientWidth;
+    return xWidth;
+}
+  
+function getHeight() {
+	xHeight = null;
+	if(window.screen != null)
+		xHeight = window.screen.availHeight;
+	if(window.innerHeight != null)
+		xHeight =   window.innerHeight;
+	if(document.body != null)
+		xHeight = document.body.clientHeight;
+	return xHeight;
+}
 
 camera["kenyatta"] = new Array();
 camera["kenyatta"]["name"] = "Kenyatta Ave roundabout";
@@ -19,60 +67,65 @@ camera["sarit"] = new Array();
 camera["sarit"]["name"] = "Sarit Center";
 camera["sarit"]["url"] = "http://traffic.accesskenya.com/images/traffic/feeds/saritroundabout.jpg";
 
+camera["silver"] = new Array();
+camera["silver"]["name"] = "Silver Springs Roundabout";
+camera["silver"]["url"] = "http://traffic.accesskenya.com/images/traffic/feeds/silversprings.jpg";
+
 
 function loadInput() {
-
-  for (var key in camera)
+	for (var key in camera)
 	{
-		document.getElementById("input").innerHTML+="<input type='checkbox' id='" +
+		document.getElementById("input").innerHTML+="<label style='font-size:1.5em'><input type='checkbox' id='" +
 		key + 
 		"_chk' onclick=enableImage(\"" +
 		key +
 		"\")>" +
-		camera[key]["name"];
+		camera[key]["name"] + 
+		"</label>";
 
 		document.getElementById("images").innerHTML+="<div id='" +
 		key +
 		"'></div>";
-
 	}
 }
 
 
 function enableImage(selection){
 
+//added ?time=" + new Date().getTime()  to make timastamp image url to work
 	if(document.getElementById(selection + "_chk").checked==true){
 		document.getElementById(selection).innerHTML="<h3>" + 
 		camera[selection]["name"] +
 		"</h3><img src=\"" +
 		camera[selection]["url"]  +
-		"\" />";
+		"?time=" + new Date().getTime() + "\" />";
 	}
 	else {
 	document.getElementById(selection).innerHTML="";
 	}
 }
+setInterval(function(){
+      var images = document.images;
+      for (var i=0; i<images.length; i++) {
+          images[i].src = images[i].src.replace(/\btime=[^&]*/, 'time=' + new Date().getTime());		  
+      } 
+	  document.body.style.width= getWidth()*0.95	;
+	  document.getElementById("input").style.width = getWidth()*0.95	;
+	 
+  }, 5000); // 10000 milliseconds = 10 seconds
 
 </script>
 
 </head>
 
 
-<body style="text-align: center;" onload=loadInput()>
+<body onload=loadInput()>
 	<div id="input">
 	</div>
 	
 	<div id="images">
 	</div>
-
-<script>
-  setInterval(function() {
-      var images = document.images;
-      for (var i=0; i<images.length; i++) {
-          images[i].src = images[i].src.replace(/\btime=[^&]*/, 'time=' + new Date().getTime());
-      }
-  }, 10000); // 10000 milliseconds = 10 seconds
-</script>
-
+	<p id="size">
+	</p>
 </body>
 </html>
