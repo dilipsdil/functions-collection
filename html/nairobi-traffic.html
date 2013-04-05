@@ -3,7 +3,7 @@
 <title>
 Dilips Traffic Cams
 </title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"  />
 <style type="text/css">
 label {
     display: block;
@@ -20,40 +20,17 @@ text-align:center;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+#images{
+padding:10px;
+
+}
 </style>
 
 
 <script type="text/javascript">
 
 var camera = new Array();
-
-window.addEventListener('focus', function() {
-});
-
-window.addEventListener('blur', function() {
-});
-
-function getWidth(){
-    xWidth = null;
-    if(window.screen != null)
-		xWidth = window.screen.availWidth;
-    if(window.innerWidth != null)
-		xWidth = window.innerWidth;
-    if(document.body != null)
-		xWidth = document.body.clientWidth;
-    return xWidth;
-}
-  
-function getHeight() {
-	xHeight = null;
-	if(window.screen != null)
-		xHeight = window.screen.availHeight;
-	if(window.innerHeight != null)
-		xHeight =   window.innerHeight;
-	if(document.body != null)
-		xHeight = document.body.clientHeight;
-	return xHeight;
-}
 
 camera["kenyatta"] = new Array();
 camera["kenyatta"]["name"] = "Kenyatta Ave roundabout";
@@ -114,6 +91,47 @@ setInterval(function(){
 	 
   }, 5000); // 10000 milliseconds = 10 seconds
 
+
+window.addEventListener('focus', function() {
+for (var key in camera){
+	enableImage(key);	
+	}
+});
+
+window.addEventListener('blur', function() {
+document.getElementById("images").innerHTML = "";
+for (var key in camera)
+	{
+	//document.getElementById(key + "_chk").checked = false;
+	document.getElementById("images").innerHTML+="<div id='" +
+		key +
+		"'></div>";
+	}
+
+});  
+
+function getWidth(){
+    xWidth = null;
+    if(window.screen != null)
+		xWidth = window.screen.availWidth;
+    if(window.innerWidth != null)
+		xWidth = window.innerWidth;
+    if(document.body != null)
+		xWidth = document.body.clientWidth;
+    return xWidth;
+}
+  
+function getHeight() {
+	xHeight = null;
+	if(window.screen != null)
+		xHeight = window.screen.availHeight;
+	if(window.innerHeight != null)
+		xHeight =   window.innerHeight;
+	if(document.body != null)
+		xHeight = document.body.clientHeight;
+	return xHeight;
+}
+  
 </script>
 
 </head>
