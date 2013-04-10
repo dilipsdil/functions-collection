@@ -1,4 +1,3 @@
-
 --useful for getting laste updated time on a table, 
 SELECT  SCN_TO_TIMESTAMP(MAX(ora_rowscn)) from TABLE_NAME
 
