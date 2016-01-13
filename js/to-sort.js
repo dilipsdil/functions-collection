@@ -83,16 +83,18 @@ function SelectContent (elemId) {
 
 function checkAll(field, button)
 {
-for (i = 0; i < field.length; i++)
+for (i = 0; i < field.length; i++){
 	field[i].checked = true ;
-	document.getElementById(button]).value = "Un-Check All""
+	document.getElementById(button]).value = "Un-Check All";
+}
 }
 
 function uncheckAll(field)
 {
-for (i = 0; i < field.length; i++)
+for (i = 0; i < field.length; i++){
 	field[i].checked = false ;	
-	document.getElementById(button]).value = "Check All""
+	document.getElementById(button]).value = "Check All";
+}
 }
 
 //used to reload all images on the page at a given interval
